@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Header from "../headers/Header";
 import Head from 'next/head'
+import Footer from "../footers/Footer";
 
 type Props = {
   children: ReactNode;
@@ -15,9 +16,8 @@ const Layout: React.FC<Props> = (props) => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <Header />
-    <div className="container max-w-7/12 mx-auto px-3 my-2">
       {props.children}
-    </div>
+    <Footer />
   </>
 );
 

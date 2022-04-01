@@ -1,29 +1,25 @@
 interface Props {
     children: React.ReactNode;
-    h1?: boolean;
-    h2?: boolean;
-    h3?: boolean;
-    h4?: boolean;
-    h5?: boolean;
+    type: string;
     extraclass?: string;
 }
 
-const Title = (props: Props) => {
-    if (props.h1) {
-        return <h1 className={`text-3xl font-bold ${props.extraclass || ""}`} {...props}>{props.children}</h1>
-    } else if (props.h2) {
-        return <h2 className={`text-2xl font-bold ${props.extraclass || ""}`} {...props}>{props.children}</h2>
-    } else if (props.h3) {
-        return <h3 className={`text-xl font-semibold ${props.extraclass || ""}`} {...props}>{props.children}
+const Title = ({ type, extraclass, children }: Props) => {
+    if (type === "h1") {
+        return <h1 className={`text-3xl font-bold ${extraclass || ""}`}>{children}</h1>
+    } else if (type === "h2") {
+        return <h2 className={`text-2xl font-bold ${extraclass || ""}`}>{children}</h2>
+    } else if (type === "h3") {
+        return <h3 className={`text-xl font-semibold ${extraclass || ""}`}>{children}
         </h3>
-    } else if (props.h4) {
-        return <h4 className={`text-md font-semibold ${props.extraclass || ""}`} {...props}>{props.children}
+    } else if (type === "h4") {
+        return <h4 className={`text-md font-semibold ${extraclass || ""}`}>{children}
         </h4>
-    } else if (props.h5) {
-        return <h5 className={`text-sm font-medium ${props.extraclass || ""}`} {...props}>{props.children}
+    } else if (type === "h5") {
+        return <h5 className={`text-sm font-medium ${extraclass || ""}`}>{children}
         </h5>
     } else {
-        return <h1 className={`text-3xl font-bold ${props.extraclass || ""}`} {...props}>{props.children}</h1>
+        return <h1 className={`text-3xl font-bold ${extraclass || ""}`}>{children}</h1>
     }
 }
 

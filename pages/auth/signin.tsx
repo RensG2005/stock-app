@@ -24,7 +24,7 @@ export default function SignIn({ providers }) {
   if (session?.user) push("/profile")
 
   return (
-    <Layout>
+    <Layout title="Sign in">
       <div className="h-screen w-full">
         <div className="flex flex-col items-center justify-center">
           <div className="bg-white shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 mt-16">

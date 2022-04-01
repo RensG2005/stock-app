@@ -1,4 +1,4 @@
-import { getSession, useSession } from "next-auth/react"
+import { getSession } from "next-auth/react"
 import DashboardLayout from "../../components/layouts/DashboardLayout"
 
 export async function getServerSideProps(context) {
@@ -11,17 +11,15 @@ export async function getServerSideProps(context) {
                     permanent: false
             }
         }
-     }  
+    } return { props: { session, ticker } } 
     }
   
 
-const Stock = () => {
-    const {status, data: session } = useSession();
-    if(status ===  "loading") return null
+const Stock = ({ session, ticker }) => {
     const user = session?.user;
 
     return (
-        <DashboardLayout user={user}>
+        <DashboardLayout title={`${ticker}`} user={user}>
 
         </DashboardLayout>
     )

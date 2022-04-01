@@ -1,5 +1,5 @@
 import DashboardLayout from "../components/layouts/DashboardLayout"
-import { getSession, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Title from "../components/ui/Title";
 
 export async function getServerSideProps(context) {
@@ -19,14 +19,13 @@ export async function getServerSideProps(context) {
     }
 }
 
-const Settings = () => {
-    const { data: session } = useSession();
+const Settings = ({ session }) => {
     const user = session?.user;
 
     return (
         <>
-            <DashboardLayout user={user}>
-                <Title h1>Settings:</Title>
+            <DashboardLayout title="Settings" user={user}>
+                <Title type="h1">Settings:</Title>
             </DashboardLayout>
         </>
     )

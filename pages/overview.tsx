@@ -1,5 +1,5 @@
 import DashboardLayout from "../components/layouts/DashboardLayout"
-import { getSession, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Title from "../components/ui/Title";
 import useFetch from "../hooks/useFetch";
 
@@ -20,20 +20,19 @@ export async function getServerSideProps(context) {
     }
 }
 
-const Dashboard = () => {
-    const { data: session } = useSession();
+const Dashboard = ({ session }) => {
     const user = session?.user;
 
-    const { data }: any = useFetch('http://localhost:3000/api/overview')
-
+    const { data, error }: any = useFetch('http://localhost:3000/api/overview')
+    console.log(error)
     return (
         <DashboardLayout user={user} title="Overview">
-            <Title h1>{data.Name} Overview:</Title>
+            <Title type="h1">{data?.Name} Overview:</Title>
             <div className="grid grid-cols-2">
                 {data && Object.keys(data).map(key => {
                     return (
                         <div className="grid grid-cols-2" key={key}>
-                            <Title h4>{key}</Title>
+                            <Title type="h4">{key}</Title>
                             <p>{data[key]}</p>
                         </div>
                     )
