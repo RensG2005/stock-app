@@ -1,0 +1,93 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Subreddit {
+  id          String @id @default(cuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  owner       User @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  posts       Post[]
+}
+
+model Post {
+  id            String    @id @default(cuid())
+  title         String
+  content       String?
+  createdAt     DateTime  @default(now())
+  updatedAt     Boolean
+  comments      Comment[]
+  commentsCount Int
+  author        User     @relation(fields: [authorId], references: [id])
+  authorId      String
+  subreddit     Subreddit @relation(fields: [subredditId], references: [id])
+  subredditId  String
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt Boolean
+  author        User     @relation(fields: [authorId], references: [id])
+  authorId      String
+  post      Post    @relation(fields: [postId], references: [id])
+  postId    String
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  posts         Post[]
+  comments      Comment[]
+  subreddits    Subreddit[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
