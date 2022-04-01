@@ -15,7 +15,7 @@ const Layout: React.FC<Props> = (props) => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <Header />
-    <div className="container max-w-7/12 mx-auto px-3 my-2 scroll-y-auto">
+    <div className="container max-w-7/12 mx-auto px-3 my-2">
       {props.children}
     </div>
   </>
