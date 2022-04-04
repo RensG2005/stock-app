@@ -1,10 +1,14 @@
-import Layout from "../components/layouts/Layout"
-import Title from "../components/ui/Title"
-import { AnnotationIcon, GlobeAltIcon, LightningBoltIcon, ScaleIcon } from '@heroicons/react/outline'
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
-import "pure-react-carousel/dist/react-carousel.es.css";
+import {
+  AnnotationIcon, GlobeAltIcon, LightningBoltIcon, ScaleIcon,
+} from '@heroicons/react/outline';
+import {
+  CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
+} from 'pure-react-carousel';
+import Layout from '../components/layouts/Layout';
+import Title from '../components/ui/Title';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 
-const Homepage = () => {
+function Homepage() {
   const features = [
     {
       name: 'Competitive exchange rates',
@@ -30,7 +34,7 @@ const Homepage = () => {
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
       icon: AnnotationIcon,
     },
-  ]
+  ];
   return (
     <Layout title="Homepage">
       <section className="max-w-screen min-h-[70vh] md:min-h-[55vh] bg-gradient-to-tr from-indigo-500 via-indigo-400 to-indigo-300 flex items-center justify-center">
@@ -77,7 +81,7 @@ const Homepage = () => {
         <div className="w-4/6 ml-16 mb-16 bg-slate-100 h-[110vh]" />
       </div>
       <div className="xl:px-20 px-8 py-20 2xl:mx-auto 2xl:container relative z-40">
-        <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={100} isIntrinsicHeight={true} totalSlides={2}>
+        <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={100} isIntrinsicHeight totalSlides={2}>
           <h1 className="text-5xl font-bold xl:block hidden leading-tight text-gray-800">
             What our customers are
             <br />
@@ -139,24 +143,24 @@ const Homepage = () => {
           <div className="flex items-center mt-8">
             <ButtonBack className="cursor-pointer " role="button" aria-label="previous slide">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.667 8H3.33366" stroke="#4B5563" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M7.33301 12L3.33301 8" stroke="#4B5563" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M7.33301 4L3.33301 8" stroke="#4B5563" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12.667 8H3.33366" stroke="#4B5563" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M7.33301 12L3.33301 8" stroke="#4B5563" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M7.33301 4L3.33301 8" stroke="#4B5563" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </ButtonBack>
 
             <ButtonNext role="button" aria-label="next slide" className="cursor-pointer ml-2">
               <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.45801 15.5H24.5413" stroke="#1F2937" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M16.792 23.25L24.542 15.5" stroke="#1F2937" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M16.792 7.75L24.542 15.5" stroke="#1F2937" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M6.45801 15.5H24.5413" stroke="#1F2937" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M16.792 23.25L24.542 15.5" stroke="#1F2937" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M16.792 7.75L24.542 15.5" stroke="#1F2937" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </ButtonNext>
           </div>
         </CarouselProvider>
       </div>
     </Layout>
-  )
+  );
 }
 
-export default Homepage
+export default Homepage;

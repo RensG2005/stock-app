@@ -1,10 +1,8 @@
-import { RefObject, useEffect, useRef } from 'react'
-
+import { RefObject, useEffect, useRef } from 'react';
 
 // See: https://usehooks-ts.com/react-hook/use-isomorphic-layout-effect
 
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
-
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 function useEventListener<K extends keyof WindowEventMap>(
 
@@ -30,7 +28,6 @@ function useEventListener<
 
 ): void
 
-
 function useEventListener<
 
     KW extends keyof WindowEventMap,
@@ -41,62 +38,46 @@ function useEventListener<
 
     >(
 
-        eventName: KW | KH,
+  eventName: KW | KH,
 
-        handler: (
+  handler: (
 
             event: WindowEventMap[KW] | HTMLElementEventMap[KH] | Event,
 
         ) => void,
 
-        element?: RefObject<T>,
+  element?: RefObject<T>,
 
 ) {
+  // Create a ref that stores handler
 
-    // Create a ref that stores handler
+  const savedHandler = useRef(handler);
 
-    const savedHandler = useRef(handler)
+  useIsomorphicLayoutEffect(() => {
+    savedHandler.current = handler;
+  }, [handler]);
 
+  useEffect(() => {
+    // Define the listening target
 
-    useIsomorphicLayoutEffect(() => {
+    const targetElement: T | Window = element?.current || window;
 
-        savedHandler.current = handler
+    if (!(targetElement && targetElement.addEventListener)) {
+      return;
+    }
 
-    }, [handler])
+    // Create event listener that calls handler function stored in ref
 
+    const eventListener: typeof handler = (event) => savedHandler.current(event);
 
-    useEffect(() => {
+    targetElement.addEventListener(eventName, eventListener);
 
-        // Define the listening target
+    // Remove event listener on cleanup
 
-        const targetElement: T | Window = element?.current || window
-
-        if (!(targetElement && targetElement.addEventListener)) {
-
-            return
-
-        }
-
-
-        // Create event listener that calls handler function stored in ref
-
-        const eventListener: typeof handler = event => savedHandler.current(event)
-
-
-        targetElement.addEventListener(eventName, eventListener)
-
-
-        // Remove event listener on cleanup
-
-        return () => {
-
-            targetElement.removeEventListener(eventName, eventListener)
-
-        }
-
-    }, [eventName, element])
-
+    return () => {
+      targetElement.removeEventListener(eventName, eventListener);
+    };
+  }, [eventName, element]);
 }
 
-
-export default useEventListener
+export default useEventListener;

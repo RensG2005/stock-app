@@ -1,4 +1,3 @@
 export default function clsx(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
-  
+  return classes.filter(Boolean).join(' ');
+}

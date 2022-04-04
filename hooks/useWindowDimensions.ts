@@ -1,14 +1,12 @@
-import { useState } from 'react'
-
+import { useState } from 'react';
 
 // See: https://usehooks-ts.com/react-hook/use-event-listener
 
-import useEventListener from './useEventListener'
+import useEventListener from './useEventListener';
 
 // See: https://usehooks-ts.com/react-hook/use-isomorphic-layout-effect
 
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
-
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 interface WindowSize {
 
@@ -18,48 +16,36 @@ interface WindowSize {
 
 }
 
-
 function useWindowSize(): WindowSize {
+  const [windowSize, setWindowSize] = useState<WindowSize>({
 
-    const [windowSize, setWindowSize] = useState<WindowSize>({
+    width: 0,
 
-        width: 0,
+    height: 0,
 
-        height: 0,
+  });
 
-    })
+  const handleSize = () => {
+    setWindowSize({
 
+      width: window.innerWidth,
 
-    const handleSize = () => {
+      height: window.innerHeight,
 
-        setWindowSize({
+    });
+  };
 
-            width: window.innerWidth,
+  useEventListener('resize', handleSize);
 
-            height: window.innerHeight,
+  // Set size at the first client-side load
 
-        })
+  useIsomorphicLayoutEffect(() => {
+    handleSize();
 
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-
-    useEventListener('resize', handleSize)
-
-
-    // Set size at the first client-side load
-
-    useIsomorphicLayoutEffect(() => {
-
-        handleSize()
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-
-    }, [])
-
-
-    return windowSize
-
+  return windowSize;
 }
 
-
-export default useWindowSize
+export default useWindowSize;
