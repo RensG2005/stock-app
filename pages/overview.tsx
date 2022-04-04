@@ -24,7 +24,6 @@ function Dashboard({ session }) {
   const user = session?.user;
 
   const { data, error }: any = useFetch('http://localhost:3000/api/overview');
-  console.log(error);
   return (
     <DashboardLayout user={user} title="Overview">
       <Title type="h1">

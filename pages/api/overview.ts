@@ -8,7 +8,6 @@ const handler = async (req, res) => {
     const data = await alpha.experimental('OVERVIEW', {
       symbol: 'AAPL',
     });
-    console.log(data);
     res.json(data);
   } else {
     res.status(500).json({ error: 'this endpoint only accepts GET requests' });
