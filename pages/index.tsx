@@ -40,7 +40,7 @@ function Homepage() {
       <section className="max-w-screen min-h-[70vh] md:min-h-[55vh] bg-gradient-to-tr from-indigo-500 via-indigo-400 to-indigo-300 flex items-center justify-center">
         <div className="flex items-center justify-center -translate-y-12 md:-translate-y-12 w-10/12 md:8/12 lg:6/12 mx-auto">
           <div className="text-center">
-            <Title type="h1" extraclass="text-white text-5xl">DE BESTE AANDELEN APP</Title>
+            <Title type="h1" extraclass="text-white text-5xl">TEST</Title>
             <Title type="h4" extraclass="text-white mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit dolore veritatis doloremque ducimus aliquid accusamus minus</Title>
           </div>
           {/* <Image className="hidden md:block" src="/homepageHero.jpg" alt="logo" width={200} height={200} /> */}
