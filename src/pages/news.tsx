@@ -1,5 +1,4 @@
 import { getSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import { NewsCard } from '../components/ui/NewsCard';
 import DashboardLayout from '../components/layouts/DashboardLayout';
 import Title from '../components/ui/Title';
@@ -22,13 +21,13 @@ export async function getServerSideProps(context) {
   };
 }
 interface Article {
-    title: string;
-    url: string;
-    urlToImage: string;
-    description: string;
+  title: string;
+  url: string;
+  urlToImage: string;
+  description: string;
 }
 interface Data {
-    articles: Article[];
+  articles: Article[];
 }
 
 export default function News({ session }) {
