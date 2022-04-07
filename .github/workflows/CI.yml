@@ -18,3 +18,14 @@ jobs:
       run: npm run test
     - name: Run eslint (only warnings)
       run: npm run lint
+  label:
+
+  runs-on: ubuntu-latest
+  permissions:
+    contents: read
+    pull-requests: write
+
+  steps:
+  - uses: actions/labeler@v4
+    with:
+      repo-token: "${{ secrets.GITHUB_TOKEN }}"

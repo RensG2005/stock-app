@@ -34,11 +34,7 @@ function DashboardHeader({ user }) {
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-8 w-8"
-                      src="logo.svg"
-                      alt="Workflow"
-                    />
+                    <img className="h-8 w-8" src="logo.svg" alt="Workflow" />
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
@@ -75,7 +71,11 @@ function DashboardHeader({ user }) {
                       <div>
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <img className="h-8 w-8 rounded-full" src={user.image} alt="" />
+                          <img
+                            className="h-8 w-8 rounded-full"
+                            src={user.image}
+                            alt=""
+                          />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -95,7 +95,7 @@ function DashboardHeader({ user }) {
                                   href={item.href}
                                   className={clsx(
                                     active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700'
+                                    'block px-4 py-2 text-sm text-gray-700',
                                   )}
                                 >
                                   {item.name}
@@ -130,7 +130,9 @@ function DashboardHeader({ user }) {
                     as="a"
                     href={item.href}
                     className={clsx(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      item.current
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'block px-3 py-2 rounded-md text-base font-medium',
                     )}
                     aria-current={item.current ? 'page' : undefined}
@@ -142,11 +144,19 @@ function DashboardHeader({ user }) {
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={user.image} alt="" />
+                    <img
+                      className="h-10 w-10 rounded-full"
+                      src={user.image}
+                      alt=""
+                    />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                    <div className="text-base font-medium leading-none text-white">
+                      {user.name}
+                    </div>
+                    <div className="text-sm font-medium leading-none text-gray-400">
+                      {user.email}
+                    </div>
                   </div>
                   <button
                     type="button"
