@@ -5,9 +5,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Cache
+    - uses: actions/cache@v3.0.1
+      with:
+        # A list of files, directories, and wildcard patterns to cache and restore
+        path: "/node_modules"
+        # An explicit key for restoring and saving the cache
+        key: "asdfasdfasdfasdfasdf"
     - name: Install modules
       run: npm ci
-    - name: Run tests
+    - name: Run unit tests with jest
       run: npm run test
-    - name: Run eslint
+    - name: Run eslint (only warnings)
       run: npm run lint
