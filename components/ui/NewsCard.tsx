@@ -5,18 +5,29 @@ import shortenText from '../../lib/shortenText/shortenText';
 import Button from './Button';
 import Title from './Title';
 
-export function NewsCard({ news }) {
-  news.title = news.title.split('-')[0];
+export default function NewsCard({
+  news: {
+    title, description, url, urlToImage,
+  },
+}) {
+  title = title.split('-')[0];
 
   const [isOpen, setIsOpen] = useState(false);
 
   const { width, height } = useWindowSize();
 
   return (
-    <div className="p-4 hover:scale-105 cursor-pointer" onClick={() => setIsOpen(true)}>
-      <img src={news.urlToImage} className="object-cover mx-auto max-h-40" />
-      <Title type="h3">{shortenText(news.title, 100)}</Title>
-      <p>{shortenText(news.description, 150)}</p>
+    <div
+      className="p-4 hover:scale-105 cursor-pointer"
+      onClick={() => setIsOpen(true)}
+    >
+      <img
+        src={urlToImage}
+        alt="News article Image"
+        className="object-cover mx-auto max-h-40"
+      />
+      <Title type="h3">{shortenText(title, 100)}</Title>
+      <p>{shortenText(description, 150)}</p>
 
       <Dialog
         open={isOpen}
@@ -26,7 +37,13 @@ export function NewsCard({ news }) {
         <div className="flex items-center justify-center min-h-screen">
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           <div className="bg-white relative rounded max-w-100 mx-auto p-10 flex flex-col justify-center">
-            <iframe className="my-5" src={news.url} width={width / 100 * 80} height={height / 100 * 80} />
+            <iframe
+              title="news article"
+              className="my-5"
+              src={url}
+              width={(width / 100) * 80}
+              height={(height / 100) * 80}
+            />
             <Button onClick={() => setIsOpen(false)}>Close</Button>
           </div>
         </div>

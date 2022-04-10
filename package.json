@@ -8,7 +8,8 @@
     "start": "next start",
     "test": "jest",
     "test-watch": "jest --watchAll",
-    "cypress": "DISPLAY=localhost:0.0 cypress open",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --headless",
     "lint": "next lint",
     "lint-fix": "npx eslint --ext .ts,.tsx ./ --fix",
     "prepare": "husky install"
@@ -42,6 +43,7 @@
     "cypress": "^9.5.3",
     "eslint": "^8.12.0",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-next": "^0.0.0",

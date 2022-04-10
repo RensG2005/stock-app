@@ -176,7 +176,7 @@ export default function SignIn({ providers }) {
               <button
                 role="button"
                 aria-label="create my account"
-                className="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none bg-indigo-700 border rounded hover:bg-indigo-600 py-4 w-full"
+                className="focus:ring-2 focus:ring-offset-2 focus:ring-sky-700 text-sm font-semibold leading-none text-white focus:outline-none bg-sky-700 border rounded hover:bg-sky-600 py-4 w-full"
               >
                 Create my account
               </button>
@@ -190,6 +190,7 @@ export default function SignIn({ providers }) {
 
 export async function getServerSideProps(context) {
   const providers = await getProviders();
+  console.log(providers);
   return {
     props: { providers },
   };
