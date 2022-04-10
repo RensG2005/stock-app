@@ -6,12 +6,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Cache
-    - uses: actions/cache@v3.0.1
+    - uses: actions/setup-node@v3
       with:
-        # A list of files, directories, and wildcard patterns to cache and restore
-        path: "/node_modules"
-        # An explicit key for restoring and saving the cache
-        key: "asdfasdfasdfasdfasdf"
+        node-version: '14'
+        cache: 'npm'
     - name: Install modules
       run: npm ci
     - name: Run unit tests with jest
