@@ -2,16 +2,15 @@ import { Dialog } from '@headlessui/react';
 import { useState } from 'react';
 import useWindowSize from '../../hooks/useWindowDimensions';
 import shortenText from '../../lib/shortenText/shortenText';
-import Button from './Button';
+import Button from './Button/Button';
 import Title from './Title';
 
 export default function NewsCard({
   news: {
-    title, description, url, urlToImage,
+    title, description, url, urlToImage, source, publishedAt,
   },
 }) {
   title = title.split('-')[0];
-
   const [isOpen, setIsOpen] = useState(false);
 
   const { width, height } = useWindowSize();
@@ -26,7 +25,12 @@ export default function NewsCard({
         alt="News article Image"
         className="object-cover mx-auto max-h-40"
       />
-      <Title type="h3">{shortenText(title, 100)}</Title>
+      <Title type="h5" extraclass="text-gray-500">
+        {source.name}
+        {' '}
+        <span className="float-right">{publishedAt.split('T')[0]}</span>
+      </Title>
+      <Title type="h3">{shortenText(title, 75)}</Title>
       <p>{shortenText(description, 150)}</p>
 
       <Dialog

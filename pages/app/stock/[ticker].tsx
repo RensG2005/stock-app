@@ -1,6 +1,6 @@
 import { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
-import DashboardLayout from '../../components/layouts/DashboardLayout';
+import DashboardLayout from '../../../components/layouts/DashboardLayout';
 
 export async function getServerSideProps(context) {
   const { ticker } = context.query;
@@ -12,7 +12,8 @@ export async function getServerSideProps(context) {
         permanent: false,
       },
     };
-  } return { props: { session, ticker } };
+  }
+  return { props: { session, ticker } };
 }
 
 interface Props {

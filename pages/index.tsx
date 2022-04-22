@@ -14,6 +14,12 @@ import HomepageSliderSlide from '../components/ui/HomepageSliderSlide';
 import Layout from '../components/layouts/Layout';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
+export async function getStaticProps(context) {
+  return {
+    props: {},
+  };
+}
+
 function Homepage() {
   const features = [
     {
@@ -60,7 +66,7 @@ function Homepage() {
       position: 'Senior Web Designer',
     },
     {
-      image: './public/homepageHero.jpg',
+      image: './homepageHero.jpg',
       title: 'Some of the best work that was done!',
       testimonial:
         'Our core values are at the heart of all that we do. They are integrated into our daily work lives and help us to remember our customers always comes first, the last thank you should always comes from us.',

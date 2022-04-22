@@ -1,28 +1,35 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Fragment, useEffect } from 'react';
+import Link from 'next/link';
+import { Fragment, useEffect, useState } from 'react';
 import clsx from '../../lib/clsx';
 
-const navigation = [
-  { name: 'Overview', href: '/overview', current: false },
-  { name: 'News', href: '/news', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
-];
 const userNavigation = [
-  { name: 'Your Profile', href: '/profile' },
-  { name: 'Settings', href: '/settings' },
-  { name: 'Sign out', href: '/auth/signout' },
+  { name: 'Your Profile', href: 'app/profile' },
+  { name: 'Settings', href: 'app/settings' },
+  { name: 'Sign out', href: 'auth/signout' },
 ];
 
 function DashboardHeader({ user }) {
+  const [navigation, setNavigation] = useState<
+    { name: string; href: string; current: boolean }[]
+  >([
+    { name: 'Overview', href: 'overview', current: false },
+    { name: 'News', href: 'news', current: false },
+    { name: 'Projects', href: '#', current: false },
+    { name: 'Calendar', href: '#', current: false },
+    { name: 'Reports', href: '#', current: false },
+  ]);
   useEffect(() => {
-    navigation.map((item) => {
-      if (window.location.href.split('/').includes(item.name.toLowerCase())) {
-        item.current = true;
-      }
-    });
+    setNavigation(
+      navigation.map((item) => {
+        const pathname = window.location.pathname.split('/');
+        if (item.href === pathname[pathname.length - 1]) {
+          return { ...item, current: true };
+        }
+        return { ...item, current: false };
+      }),
+    );
   }, []);
 
   return (
@@ -34,24 +41,28 @@ function DashboardHeader({ user }) {
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img className="h-8 w-8" src="logo.svg" alt="Workflow" />
+                    <img className="h-8 w-8" src="/logo.svg" alt="Workflow" />
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
-                        <a
+                        <Link
+                          href={`/app/${item.href}`}
+                          replace
                           key={item.name}
-                          href={item.href}
-                          className={clsx(
-                            item.current
-                              ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'px-3 py-2 rounded-md text-sm font-medium',
-                          )}
-                          aria-current={item.current ? 'page' : undefined}
                         >
-                          {item.name}
-                        </a>
+                          <a
+                            className={clsx(
+                              item.current
+                                ? 'bg-gray-900 text-white'
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              'px-3 py-2 rounded-md text-sm font-medium',
+                            )}
+                            aria-current={item.current ? 'page' : undefined}
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -91,15 +102,17 @@ function DashboardHeader({ user }) {
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>
                               {({ active }) => (
-                                <a
-                                  href={item.href}
-                                  className={clsx(
-                                    active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700',
-                                  )}
-                                >
-                                  {item.name}
-                                </a>
+                                <Link href={`/${item.href}`} replace>
+                                  <a
+                                    href={item.href}
+                                    className={clsx(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700',
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                </Link>
                               )}
                             </Menu.Item>
                           ))}
@@ -125,20 +138,20 @@ function DashboardHeader({ user }) {
             <Disclosure.Panel className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={clsx(
-                      item.current
-                        ? 'bg-gray-900 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'block px-3 py-2 rounded-md text-base font-medium',
-                    )}
-                    aria-current={item.current ? 'page' : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
+                  <Link href={`/app/${item.href}`} replace key={item.name}>
+                    <Disclosure.Button
+                      as="a"
+                      className={clsx(
+                        item.current
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'block px-3 py-2 rounded-md text-base font-medium',
+                      )}
+                      aria-current={item.current ? 'page' : undefined}
+                    >
+                      {item.name}
+                    </Disclosure.Button>
+                  </Link>
                 ))}
               </div>
               <div className="pt-4 pb-3 border-t border-gray-700">
@@ -168,14 +181,14 @@ function DashboardHeader({ user }) {
                 </div>
                 <div className="mt-3 px-2 space-y-1">
                   {userNavigation.map((item) => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      href={item.href}
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                    >
-                      {item.name}
-                    </Disclosure.Button>
+                    <Link href={`/${item.href}`} replace key={item.name}>
+                      <Disclosure.Button
+                        as="a"
+                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                      >
+                        {item.name}
+                      </Disclosure.Button>
+                    </Link>
                   ))}
                 </div>
               </div>
