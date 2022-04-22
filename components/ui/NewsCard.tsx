@@ -48,7 +48,7 @@ export default function NewsCard({
               width={(width / 100) * 80}
               height={(height / 100) * 80}
             />
-            <Button onClick={() => setIsOpen(false)}>Close</Button>
+            <Button variant="primary" onClick={() => setIsOpen(false)}>Close</Button>
           </div>
         </div>
       </Dialog>

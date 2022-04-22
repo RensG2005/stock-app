@@ -16,11 +16,11 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 export const NormalButton: ComponentStory<typeof Button> = () => (
-  <Button>Button</Button>
+  <Button variant="primary">Button</Button>
 );
 
 export const DisabledButton: ComponentStory<typeof Button> = () => (
-  <Button disabled>Button</Button>
+  <Button disabled variant="primary">Button</Button>
 );
 
 DisabledButton.play = async ({ canvasElement }) => {
