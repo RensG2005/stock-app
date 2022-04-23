@@ -9,10 +9,6 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 import { useRef } from 'react';
 import axios from 'axios';
 
-export function reportWebVitals(metric) {
-  console.log(metric);
-}
-
 function App({ Component, pageProps }: AppProps) {
   const toastId = useRef(null);
   const defaultQueryFn = async ({ queryKey }) => {

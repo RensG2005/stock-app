@@ -77,10 +77,10 @@ function Homepage() {
 
   return (
     <Layout title="Homepage">
-      <section className="max-w-screen min-h-[100vh] xl:min-h-[80vh] flex items-center justify-center">
+      <section className="max-w-screen min-h-[90vh] xl:min-h-[80vh] flex items-center justify-center">
         <div className="flex items-center justify-center -translate-y-12 md:-translate-y-12 w-10/12 md:8/12 lg:6/12 mx-auto">
           <div className="flex flex-col items-center text-center mt-24 md:mt-12 lg:mt-0">
-            <h1 className=" text-[3rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] 2xl:text-[7rem] leading-none break-words w-9/12 font-bold">
+            <h1 className=" text-[3rem] md:text-[4rem] lg:text-[5rem] xl:text-[5.5rem] 2xl:text-[6rem] leading-none break-words w-10/12 font-bold tracking-wide">
               THE BEST STOCK APP IN THE WORLD
             </h1>
             <h3 className="mt-5 font-medium text-sm md:text-lg xl:text-xl w-6/12">

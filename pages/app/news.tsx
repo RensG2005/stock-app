@@ -28,6 +28,7 @@ interface Article {
   urlToImage: string;
   description: string;
   publishedAt: string;
+  source: any;
 }
 
 export default function News({ session }) {
@@ -51,7 +52,7 @@ export default function News({ session }) {
             className={
               display === 'cards'
                 ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4'
-                : 'flex'
+                : 'flex flex-col'
             }
           >
             {isError && (

@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import clsx from '../../lib/clsx';
 import Title from '../../components/ui/Title';
 import Button from '../../components/ui/Button/Button';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
@@ -36,7 +35,7 @@ function Profile({ session }) {
 
   const {
     mutate, isIdle, isLoading, data, error, isError,
-  } = useMutation(
+  }: any = useMutation(
     'updateUser',
     () => axios.put('/api/auth/updateUser', {
       name,
