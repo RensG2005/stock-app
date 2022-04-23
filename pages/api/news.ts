@@ -1,6 +1,6 @@
 import { getSession } from 'next-auth/react';
 
-const NewsAPI = require('newsapi');
+import NewsAPI from 'newsapi';
 
 const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
 

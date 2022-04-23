@@ -1,8 +1,8 @@
 import {
   AnnotationIcon,
-  GlobeAltIcon,
+  ChartBarIcon,
+  InformationCircleIcon,
   LightningBoltIcon,
-  ScaleIcon,
 } from '@heroicons/react/outline';
 import {
   CarouselProvider,
@@ -10,24 +10,29 @@ import {
   ButtonBack,
   ButtonNext,
 } from 'pure-react-carousel';
-import { HomepageSliderSlide } from '../components/ui/HomepageSliderSlide';
+import HomepageSliderSlide from '../components/ui/HomepageSliderSlide';
 import Layout from '../components/layouts/Layout';
-import Title from '../components/ui/Title';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+
+export async function getStaticProps(context) {
+  return {
+    props: {},
+  };
+}
 
 function Homepage() {
   const features = [
     {
-      name: 'Competitive exchange rates',
+      name: 'Fully featured charts',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: GlobeAltIcon,
+      icon: ChartBarIcon,
     },
     {
-      name: 'No hidden fees',
+      name: 'Explanations on all Terms',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-      icon: ScaleIcon,
+      icon: InformationCircleIcon,
     },
     {
       name: 'Transfers are instant',
@@ -61,7 +66,7 @@ function Homepage() {
       position: 'Senior Web Designer',
     },
     {
-      image: './public/homepageHero.jpg',
+      image: './homepageHero.jpg',
       title: 'Some of the best work that was done!',
       testimonial:
         'Our core values are at the heart of all that we do. They are integrated into our daily work lives and help us to remember our customers always comes first, the last thank you should always comes from us.',
@@ -72,10 +77,10 @@ function Homepage() {
 
   return (
     <Layout title="Homepage">
-      <section className="max-w-screen min-h-[100vh] xl:min-h-[80vh] flex items-center justify-center">
+      <section className="max-w-screen min-h-[90vh] xl:min-h-[80vh] flex items-center justify-center">
         <div className="flex items-center justify-center -translate-y-12 md:-translate-y-12 w-10/12 md:8/12 lg:6/12 mx-auto">
           <div className="flex flex-col items-center text-center mt-24 md:mt-12 lg:mt-0">
-            <h1 className=" text-[3rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] 2xl:text-[7rem] leading-none break-words w-9/12 font-bold">
+            <h1 className=" text-[3rem] md:text-[4rem] lg:text-[5rem] xl:text-[5.5rem] 2xl:text-[6rem] leading-none break-words w-10/12 font-bold tracking-wide">
               THE BEST STOCK APP IN THE WORLD
             </h1>
             <h3 className="mt-5 font-medium text-sm md:text-lg xl:text-xl w-6/12">
@@ -85,7 +90,7 @@ function Homepage() {
             <button>
               <a
                 href="/auth/signin"
-                className="mt-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                className="mt-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-sky-600 hover:bg-sky-700"
               >
                 Start Investing now
               </a>
@@ -96,7 +101,7 @@ function Homepage() {
       <div className="py-10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
-            <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
+            <h2 className="text-base text-sky-600 font-semibold tracking-wide uppercase">
               Transactions
             </h2>
             <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
@@ -113,7 +118,7 @@ function Homepage() {
               {features.map((feature) => (
                 <div key={feature.name} className="relative block z-20">
                   <dt>
-                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-sky-500 text-white">
                       <feature.icon className="h-6 w-6" aria-hidden="true" />
                     </div>
                     <p className="ml-16 text-lg leading-6 font-medium text-gray-900">
@@ -145,8 +150,8 @@ function Homepage() {
             What our customers are saying
           </h1>
           <Slider>
-            {testimonials.map((testimonial, index) => (
-              <HomepageSliderSlide key={index} testimonial={testimonial} />
+            {testimonials.map((testimonial: Testimonial, index) => (
+              <HomepageSliderSlide testimonial={testimonial} key={index} />
             ))}
           </Slider>
           <div className="flex items-center mt-8">

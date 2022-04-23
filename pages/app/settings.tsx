@@ -1,6 +1,6 @@
 import { getSession } from 'next-auth/react';
-import DashboardLayout from '../components/layouts/DashboardLayout';
-import Title from '../components/ui/Title';
+import DashboardLayout from '../../components/layouts/DashboardLayout';
+import Title from '../../components/ui/Title';
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
@@ -19,17 +19,14 @@ export async function getServerSideProps(context) {
   };
 }
 
-function Profile({ session }) {
+function Settings({ session }) {
   const user = session?.user;
 
   return (
-    <DashboardLayout title="Profile" user={user}>
-      <Title type="h1">
-        Hello
-        {user.name}
-      </Title>
+    <DashboardLayout title="Settings" user={user}>
+      <Title type="h1">Settings:</Title>
     </DashboardLayout>
   );
 }
 
-export default Profile;
+export default Settings;

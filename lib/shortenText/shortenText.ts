@@ -1,7 +1,7 @@
-const shortenText = (text: string, maxLength: number): string => {
-  if (text.length <= maxLength) {
-    return text;
-  }
+const shortenText = (text = '', maxLength: number): string => {
+  if (!text) return 'Nothing to see here';
+  if (text.length === 0) return 'Nothing to see here';
+  if (text.length <= maxLength) return text;
   const splitted = text.split(' ');
   let shortened = '';
   let currentLength = 0;

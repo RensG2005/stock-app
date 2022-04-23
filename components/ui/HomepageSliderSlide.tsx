@@ -1,7 +1,7 @@
 import { Slide } from 'pure-react-carousel';
 import React from 'react';
 
-export function HomepageSliderSlide({
+export default function HomepageSliderSlide({
   testimonial: {
     image, title, testimonial, name, position,
   },
@@ -16,7 +16,7 @@ export function HomepageSliderSlide({
               alt="image of profile"
               className="w-full h-full flex-shrink-0 object-fit object-cover shadow-lg rounded"
             />
-            <div className="w-32 md:flex hidden items-center justify-center absolute top-0 -mr-16 -mt-14 right-0 h-32 bg-indigo-100 rounded-full">
+            <div className="w-32 md:flex hidden items-center justify-center absolute top-0 -mr-16 -mt-14 right-0 h-32 bg-sky-100 rounded-full">
               <svg
                 width="42"
                 height="42"
