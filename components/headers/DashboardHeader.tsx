@@ -34,7 +34,10 @@ function DashboardHeader({ user }) {
 
   return (
     <div className="min-h-full z-50">
-      <Disclosure as="nav" className="bg-gray-800">
+      <Disclosure
+        as="nav"
+        className="bg-gray-800 border-b-2 border-white border-1"
+      >
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

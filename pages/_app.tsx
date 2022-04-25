@@ -6,8 +6,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Head from 'next/head';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { useRef } from 'react';
+import {
+  createContext, useEffect, useRef, useState,
+} from 'react';
 import axios from 'axios';
+
+export const darkModeContext = createContext<any>(false);
 
 function App({ Component, pageProps }: AppProps) {
   const toastId = useRef(null);
@@ -32,6 +36,23 @@ function App({ Component, pageProps }: AppProps) {
       },
     },
   });
+
+  const [darkSide, setDarkSide] = useState(false);
+
+  useEffect(() => {
+    const darkMode = localStorage.getItem('theme');
+    if (darkMode) {
+      setDarkSide(darkMode === 'true');
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', darkSide.toString());
+    darkSide
+      ? document.documentElement.classList.add('dark')
+      : document.documentElement.classList.remove('dark');
+  }, [darkSide]);
+
   return (
     <>
       <Head>
@@ -59,9 +80,11 @@ function App({ Component, pageProps }: AppProps) {
       </Head>
       <SessionProvider session={pageProps.session}>
         <QueryClientProvider client={queryClient}>
-          <NextNProgress />
-          <ToastContainer position="bottom-right" />
-          <Component {...pageProps} />
+          <darkModeContext.Provider value={{ darkSide, setDarkSide }}>
+            <NextNProgress />
+            <ToastContainer position="bottom-right" />
+            <Component {...pageProps} />
+          </darkModeContext.Provider>
         </QueryClientProvider>
       </SessionProvider>
     </>
