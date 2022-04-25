@@ -6,7 +6,7 @@ const updateUser = async (req, res) => {
   if (req.method === 'PUT') {
     try {
       const session = await getSession({ req });
-      if (!session) res.status(500).json({ error: 'Not signed in' });
+      if (!session) return res.status(500).json({ error: 'Not signed in' });
 
       const { name, images } = req.body;
 
@@ -39,13 +39,15 @@ const updateUser = async (req, res) => {
       });
       delete updatedUser.id;
       delete updatedUser.emailVerified;
-      res.json(updatedUser);
+      return res.json(updatedUser);
     } catch (err) {
       console.log(err);
-      res.json({ error: err });
+      return res.json({ error: err });
     }
   } else {
-    res.status(500).json({ error: 'this endpoint only accepts PUT requests' });
+    return res
+      .status(500)
+      .json({ error: 'this endpoint only accepts PUT requests' });
   }
 };
 

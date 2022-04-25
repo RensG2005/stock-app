@@ -41,19 +41,18 @@ function Profile({ session }) {
       name,
       images,
     }),
+    {
+      onSuccess: (data) => {
+        setUser(data.data);
+        toastId.current = toast('Profile updated successfully', {
+          type: 'success',
+        });
+        setImages([]);
+        setName('');
+        setUpdateProfileOpen(false);
+      },
+    },
   );
-
-  useEffect(() => {
-    if (!isLoading && !isError && data && !isIdle) {
-      setUser(data.data);
-      toastId.current = toast('Profile updated successfully', {
-        type: 'success',
-      });
-      setImages([]);
-      setName('');
-      setUpdateProfileOpen(false);
-    }
-  }, [data, isLoading, isError, isIdle]);
 
   return (
     <DashboardLayout title="Profile" user={user}>
@@ -156,7 +155,7 @@ function Profile({ session }) {
             )}
           </ImageUploading>
           <Button variant="primary" onClick={mutate} disabled={isLoading}>
-            Update profile information
+            {!isLoading ? 'Update profile information' : 'Loading...'}
           </Button>
         </div>
       )}
