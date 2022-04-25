@@ -20,7 +20,6 @@ function App({ Component, pageProps }: AppProps) {
     if (!response.data) {
       toast.dismiss(toastId.current);
       toast.error('Network response was not ok');
-      throw new Error('Network response was not ok');
     } else {
       toast.dismiss(toastId.current);
       return response.data;

@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
-import { useCallback, useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useMutation } from 'react-query';
-import ReactApexChart from 'react-apexcharts';
-import { ApexOptions } from 'apexcharts';
+import dynamic from 'next/dynamic';
+import { toast } from 'react-toastify';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import Button from '../../components/ui/Button/Button';
 import Title from '../../components/ui/Title';
+import abbrNum from '../../lib/abbreviateText/abbreviateNumber';
+
+const Chart = dynamic(() => import('../../components/ui/Chart'), {
+  ssr: false,
+});
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
@@ -27,119 +32,86 @@ export async function getServerSideProps(context) {
 
 function Overview({ session }) {
   const user = session?.user;
+  const toastId = useRef(null);
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [series, setSeries] = useState<
-    [{ data: { x: string; y: string[] }[] }]
-  >([{ data: [] }]);
-  const [options, setOptions] = useState<ApexOptions>({
-    chart: {
-      height: 350,
-      type: 'candlestick',
-    },
-    title: {
-      text: `${searchTerm} Stock Price Chart`,
-      align: 'left',
-    },
-    tooltip: {
-      enabled: true,
-    },
-    xaxis: {
-      type: 'category',
-      labels: {
-        formatter(val) {
-          return val;
-        },
-      },
-    },
-    yaxis: {
-      tooltip: {
-        enabled: true,
-      },
-    },
-  });
+  const [companyFundamentals, setCompanyFundamentals] = useState<any>({});
+  const [series, setSeries] = useState<any>([]);
 
   const {
-    isLoading, isIdle, isError, data, error, mutate,
+    isLoading, isIdle, isError, mutate,
   }: any = useMutation(
-    'search',
-    async (searchTerm: string) => {
-      const response = await axios.get(
-        `http://localhost:3000/api/overview?search=${searchTerm}`,
-      );
-      if (!response.data) {
-        throw new Error('Network response was not ok');
-      }
-      return response.data;
-    },
-  );
-
-  useEffect(() => {
-    if (data) {
-      for (const key in data?.data_daily['Time Series (Daily)']) {
-        series[0].data.push({
-          x: key,
-          y: [
-            data?.data_daily['Time Series (Daily)'][key]['1. open'],
-            data?.data_daily['Time Series (Daily)'][key]['2. high'],
-            data?.data_daily['Time Series (Daily)'][key]['3. low'],
-            data?.data_daily['Time Series (Daily)'][key]['4. close'],
-          ],
+    'searchStock',
+    () => axios.post('/api/overview', {
+      search: searchTerm,
+    }),
+    {
+      onSuccess: (data: any) => {
+        const dailyData = [];
+        const overviewData = {};
+        for (const key in data.data?.data_daily['Time Series (Daily)']) {
+          dailyData.unshift({
+            time: key,
+            open: data?.data?.data_daily['Time Series (Daily)'][key]['1. open'],
+            high: data?.data?.data_daily['Time Series (Daily)'][key]['2. high'],
+            low: data?.data?.data_daily['Time Series (Daily)'][key]['3. low'],
+            close:
+              data?.data?.data_daily['Time Series (Daily)'][key]['4. close'],
+          });
+        }
+        setSeries(dailyData);
+        Object.entries(data.data.data).forEach(([key, value]) => {
+          console.log(key, typeof value);
+          if (!isNaN(+value)) {
+            const abbr = abbrNum(+value, 1);
+            overviewData[key] = abbr;
+          } else {
+            overviewData[key] = value;
+          }
         });
-      }
-    }
-  }, [data]);
-
-  const updateSearchTerm = useCallback(
-    (e) => {
-      setSearchTerm(e.target.value);
+        setCompanyFundamentals(overviewData);
+      },
+      onError: (error: any) => {
+        toastId.current = toast.error(error.response.data.error);
+        setSeries([]);
+        setCompanyFundamentals({});
+      },
     },
-    [searchTerm],
   );
 
   return (
     <DashboardLayout user={user} title="Overview">
-      <form>
-        <input
-          onChange={(e) => updateSearchTerm(e)}
-          className="my-5 bg-gray-200 border border-black border-1 rounded-md focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
-          type="text"
-          placeholder="AAPL"
-        />
-        <Button
-          variant="primary"
-          onClick={() => mutate(searchTerm)}
-          type="submit"
-        >
-          Search
-        </Button>
-      </form>
-      {isLoading ? null : (
+      <input
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="bg-gray-200 border border-black border-1 rounded-md focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+        type="text"
+        placeholder="AAPL"
+      />
+      <Button
+        variant="primary"
+        onClick={() => mutate(searchTerm)}
+        type="submit"
+        disabled={isLoading}
+      >
+        {!isLoading ? 'Search' : 'Loading...'}
+      </Button>
+      {!isIdle && !isError && !isLoading && (
         <>
-          {isError && (
-            <span className="text-red-500">
-              Error:
-              {error.message}
-            </span>
-          )}
-          {data && series.length > 0 && (
-            <>
-              <Title type="h1">
-                {data?.Name}
-                {' '}
-                Overview:
-              </Title>
-              {/* <ReactApexChart options={options} series={series} type="candlestick" width="100%" /> */}
-              <div className="grid grid-cols-2">
-                {data.data
-                  && Object.keys(data.data).map((key) => (
-                    <div className="grid grid-cols-2" key={key}>
-                      <Title type="h4">{key}</Title>
-                      <p>{data.data[key]}</p>
-                    </div>
-                  ))}
-              </div>
-            </>
-          )}
+          <Title type="h1">
+            {companyFundamentals?.Name}
+            {' '}
+            Overview:
+          </Title>
+          <Chart series={series} />
+          <div className="grid grid-cols-2">
+            {companyFundamentals
+              && Object.keys(companyFundamentals).map((key) => (
+                <div className="grid grid-cols-2" key={key}>
+                  <Title type="h4">{key}</Title>
+                  <p>{companyFundamentals[key]}</p>
+                </div>
+              ))}
+          </div>
         </>
       )}
     </DashboardLayout>
