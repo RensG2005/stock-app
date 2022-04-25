@@ -31,7 +31,7 @@
     "lightweight-charts": "^3.8.0",
     "newsapi": "^2.4.1",
     "next": "12.1.0",
-    "next-auth": "^4.2.1",
+    "next-auth": "^4.3.2",
     "nextjs-progressbar": "^0.0.14",
     "pure-react-carousel": "^1.28.1",
     "react": "17.0.2",
