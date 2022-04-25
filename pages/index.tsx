@@ -14,6 +14,8 @@ import HomepageSliderSlide from '../components/ui/HomepageSliderSlide';
 import Layout from '../components/layouts/Layout';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { motion } from 'framer-motion';
+import { darkModeContext } from './_app';
+import { useContext } from 'react';
 
 export async function getStaticProps(context) {
   return {
@@ -76,8 +78,10 @@ function Homepage() {
     },
   ];
 
+  const { setDarkSide, darkSide } = useContext(darkModeContext);
+
   return (
-    <Layout title="Homepage">
+    <Layout title="Homepage" setDarkSide={setDarkSide} darkSide={darkSide}>
       <section className="max-w-screen min-h-[90vh] xl:min-h-[80vh] flex items-center justify-center">
         <div className="flex items-center justify-center -translate-y-12 md:-translate-y-12 w-10/12 md:8/12 lg:6/12 mx-auto">
           <motion.div

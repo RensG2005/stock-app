@@ -8,6 +8,7 @@ import DashboardLayout from '../../components/layouts/DashboardLayout';
 import Button from '../../components/ui/Button/Button';
 import Title from '../../components/ui/Title';
 import abbrNum from '../../lib/abbreviateText/abbreviateNumber';
+import shortenText from '../../lib/shortenText/shortenText';
 
 const Chart = dynamic(() => import('../../components/ui/Chart'), {
   ssr: false,
@@ -37,6 +38,7 @@ function Overview({ session }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [companyFundamentals, setCompanyFundamentals] = useState<any>({});
   const [series, setSeries] = useState<any>([]);
+  const [openDescription, setOpenDescription] = useState(true);
 
   const {
     isLoading, isIdle, isError, mutate,
@@ -48,7 +50,9 @@ function Overview({ session }) {
     {
       onSuccess: (data: any) => {
         const dailyData = [];
-        const overviewData = {};
+        const overviewData = {
+          Description: null,
+        };
         for (const key in data.data?.data_daily['Time Series (Daily)']) {
           dailyData.unshift({
             time: key,
@@ -100,17 +104,29 @@ function Overview({ session }) {
           <Title type="h1">
             {companyFundamentals?.Name}
             {' '}
+            {companyFundamentals?.Symbol}
+            {' '}
             Overview:
           </Title>
           <Chart series={series} />
+          <div className="col-span-2 my-5">
+            <Title type="h4">Description:</Title>
+            <p className="my-2">{companyFundamentals.Description}</p>
+          </div>
           <div className="grid grid-cols-2">
-            {companyFundamentals
-              && Object.keys(companyFundamentals).map((key) => (
-                <div className="grid grid-cols-2" key={key}>
-                  <Title type="h4">{key}</Title>
-                  <p>{companyFundamentals[key]}</p>
-                </div>
-              ))}
+            {Object.keys(companyFundamentals).map(
+              (key) => key !== 'Description'
+                && key !== 'Symbol'
+                && key !== 'Name' && (
+                  <div className="grid grid-cols-2 my-2" key={key}>
+                    <Title type="h4">
+                      {key}
+                      :
+                    </Title>
+                    <p>{companyFundamentals[key]}</p>
+                  </div>
+              ),
+            )}
           </div>
         </>
       )}
