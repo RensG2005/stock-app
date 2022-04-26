@@ -3,7 +3,14 @@ function abbrNum(number: number | string, decPlaces: number): string | number {
   decPlaces = 10 ** decPlaces;
 
   // Enumerate number abbreviations
-  const abbrev = ['k', 'm', 'b', 't'];
+  const abbrev = [
+    ' Thousand',
+    ' Million',
+    ' Billion',
+    ' Trillion',
+    ' Quadrillion',
+    ' Quintillion',
+  ];
 
   // Go through the array backwards, so we do the largest first
   for (let i = abbrev.length - 1; i >= 0; i--) {

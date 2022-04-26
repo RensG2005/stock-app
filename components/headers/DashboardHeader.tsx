@@ -16,9 +16,6 @@ function DashboardHeader({ user }) {
   >([
     { name: 'Overview', href: 'overview', current: false },
     { name: 'News', href: 'news', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
-    { name: 'Reports', href: '#', current: false },
   ]);
   useEffect(() => {
     setNavigation(

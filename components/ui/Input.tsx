@@ -6,16 +6,20 @@ interface Props {
   name?: string;
   textarea?: boolean;
   value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 function Input({
-  textarea = false,
-  label = 'Email',
-  id = label,
-  value = label,
-  type = 'text',
-  name = label,
-  placeholder = '',
+  textarea,
+  label,
+  id,
+  value,
+  type,
+  name,
+  placeholder,
+  onChange,
+  className,
 }: Props) {
   if (!textarea) {
     return (
@@ -27,9 +31,12 @@ function Input({
           value={value}
           type={type || 'text'}
           id={id}
-          className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent mt-2"
+          className={`rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent ${
+            className || ''
+          }`}
           name={name}
           placeholder={placeholder}
+          onChange={onChange}
         />
       </div>
     );

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Title from '../../components/ui/Title';
 import Button from '../../components/ui/Button/Button';
+import Input from '../../components/ui/Input';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 
 export async function getServerSideProps(context) {
@@ -73,7 +74,7 @@ function Profile({ session }) {
         {!updateProfileOpen ? 'Update Profile' : 'Back'}
       </Button>
       {updateProfileOpen && (
-        <div className="relative flex flex-col mt-8">
+        <div className="relative flex flex-col">
           {isError && <p className="text-red-500">{error.message}</p>}
           {isError && (
             <p className="text-red-500">
@@ -81,12 +82,12 @@ function Profile({ session }) {
             </p>
           )}
           <Title type="h2">Name: </Title>
-          <input
+          <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="my-5 bg-gray-200 border border-black border-1 rounded-md focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
             type="text"
             placeholder={user.name}
+            className="my-5"
           />
           <Title type="h2">Profile picture: </Title>
           <ImageUploading

@@ -9,6 +9,7 @@ import Button from '../../components/ui/Button/Button';
 import Title from '../../components/ui/Title';
 import abbrNum from '../../lib/abbreviateText/abbreviateNumber';
 import shortenText from '../../lib/shortenText/shortenText';
+import Input from '../../components/ui/Input';
 
 const Chart = dynamic(() => import('../../components/ui/Chart'), {
   ssr: false,
@@ -85,10 +86,9 @@ function Overview({ session }) {
 
   return (
     <DashboardLayout user={user} title="Overview">
-      <input
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="bg-gray-200 border border-black border-1 rounded-md focus:outline-none text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"
+      <Input
         type="text"
+        onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="AAPL"
       />
       <Button
