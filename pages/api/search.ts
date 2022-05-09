@@ -13,16 +13,12 @@ const handler = async (req, res) => {
           .json({ error: 'Please provide an ticker symbol' });
       }
 
-      const data = await alpha.experimental('OVERVIEW', {
-        symbol: req.body.search,
-      });
-
-      const data_daily = await alpha.data.daily(req.body.search, 'full');
+      const data = await alpha.data.search(req.body.search, 'full');
 
       if (!data) {
         return res.status(500).json({ error: 'No data found' });
       }
-      return res.json({ data, data_daily });
+      return res.json({ data });
     } catch (err) {
       console.log(err);
       return res.status(500).json({

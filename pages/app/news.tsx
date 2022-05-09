@@ -1,6 +1,7 @@
 import { getSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import NewsCard from '../../components/ui/NewsCard';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import Title from '../../components/ui/Title';
@@ -42,10 +43,17 @@ export default function News({ session }) {
       {isLoading ? null : (
         <>
           <Title type="h1">Today:</Title>
-          <Button variant="transparent" onClick={() => setDisplay('cards')}>
+          <Button
+            variant={display === 'cards' ? 'primary' : 'transparent'}
+            onClick={() => setDisplay('cards')}
+            extraclass="m-4"
+          >
             Display news as Cards
           </Button>
-          <Button variant="transparent" onClick={() => setDisplay('list')}>
+          <Button
+            variant={display === 'list' ? 'primary' : 'transparent'}
+            onClick={() => setDisplay('list')}
+          >
             Display news as List
           </Button>
           <div
@@ -63,7 +71,9 @@ export default function News({ session }) {
             )}
             {data
               && data.articles.map((news: Article) => (
-                <NewsCard kind={display} news={news} key={news.title} />
+                <motion.div layout>
+                  <NewsCard kind={display} news={news} key={news.title} />
+                </motion.div>
               ))}
           </div>
         </>

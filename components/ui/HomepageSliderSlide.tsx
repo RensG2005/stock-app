@@ -37,18 +37,18 @@ export default function HomepageSliderSlide({
           </div>
           <div className="md:w-1/3 lg:w-1/3 xl:ml-32 md:ml-20 md:mt-0 mt-4 flex flex-col justify-between">
             <div>
-              <h1 className="text-2xl font-semibold xl:leading-loose text-gray-800">
+              <h1 className="text-2xl font-semibold xl:leading-loose text-gray-800 dark:text-white">
                 {title}
               </h1>
-              <p className="text-base font-medium leading-6 mt-4 text-gray-600">
+              <p className="text-base font-medium leading-6 mt-4 text-gray-600 dark:text-gray-200">
                 {testimonial}
               </p>
             </div>
             <div className="md:mt-0 mt-8">
-              <p className="text-base font-medium leading-4 text-gray-800">
+              <p className="text-base font-medium leading-4 text-gray-800 dark:text-white">
                 {name}
               </p>
-              <p className="text-base leading-4 mt-2 mb-4 text-gray-600">
+              <p className="text-base leading-4 mt-2 mb-4 text-gray-600 dark:text-gray-200">
                 {position}
               </p>
             </div>

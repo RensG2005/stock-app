@@ -20,7 +20,7 @@ function Button({
   return (
     <button
       className={clsx(
-        'px-4 py-2 rounded-md m-4 text-sm font-medium text-white focus:outline-none focus:shadow-outline',
+        'px-4 py-2 rounded-md text-sm font-medium text-white focus:outline-none focus:shadow-outline',
         extraclass,
         props.variant === 'primary' && 'bg-sky-600 hover:bg-sky-700',
         props.variant === 'secondary' && 'bg-indigo-500 hover:bg-indigo-500',

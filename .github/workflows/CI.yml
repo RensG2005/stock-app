@@ -9,13 +9,13 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: '14'
-        cache: 'npm'
+        cache: 'pnpm'
     - name: Install modules
-      run: npm ci
+      run: pnpm ci
     - name: Run unit tests with jest
-      run: npm run test
+      run: pnpm run test
     - name: Run eslint (only warnings)
-      run: npm run lint
+      run: pnpm run lint
   label:
 
   runs-on: ubuntu-latest

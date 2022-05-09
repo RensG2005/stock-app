@@ -28,7 +28,7 @@ const Layout: React.FC<Props> = (props) => (
 
     <div className="absolute top-0 left-0 bottom-0 right-0 bg-slate-50 dark:bg-slate-800 z-0" />
 
-    <motion.div
+    {/* <motion.div
       initial={false}
       animate={{
         opacity: 1,
@@ -37,26 +37,35 @@ const Layout: React.FC<Props> = (props) => (
           ease: 'easeInOut',
         },
       }}
-    >
-      {/* <motion.div initial={false} animate={{ y: [0, 100, 0] }} transition={{ duration: 15, repeat: Infinity }} layout="position"> */}
-      <div className="absolute left-[43%]  bg-red-100 dark:bg-red-700 blur-lg z-1 rounded-full shadow-3xl dark:shadow-dark-4xl shadow-red-100 dark:shadow-red-700 w-1/4 h-[15%]" />
-      <div className="absolute left-[43%] -translate-x-full bg-sky-100 dark:bg-sky-700 blur-lg z-1 rounded-md shadow-3xl dark:shadow-dark-4xl shadow-sky-100 dark:shadow-sky-800 w-1/4" />
-      {/* </motion.div> */}
+    > */}
+    {!props.darkSide && (
+      <>
+        <div className="absolute left-[43%] blur-3xl z-1 rounded-full shadow-3xl shadow-red-200 w-1/4 bg-red-200 h-[12%]" />
+        <div className="absolute left-[43%] -translate-x-full blur-3xl z-1 rounded-full shadow-3xl shadow-sky-200 w-1/4 bg-sky-200 h-[12%]" />
 
-      {/* <motion.div initial={false} animate={{ y: [400, 500, 4000] }} transition={{ duration: 15, repeat: Infinity }} layout="position"> */}
+        <div className="absolute top-[12%] left-[43%] -translate-x-full bg-sky-200 blur-3xl z-1 rounded-md shadow-3xl shadow-sky-200 w-1/4 h-[12%]" />
+        <div className="absolute top-[10%] left-[43%]  bg-red-200 blur-3xl z-1 rounded-full shadow-3xl shadow-red-200 w-1/4 h-[12%]" />
 
-      <div className="absolute top-[10%] left-[50%]  bg-red-100 z-1 rounded-full shadow-3xl shadow-red-100 w-1/4 h-[18%] dark:shadow-red-700 dark:bg-red-800" />
-      <div className="absolute top-[10%] left-[45%] -translate-x-full bg-sky-100 z-1 rounded-full shadow-4xl shadow-sky-100 dark:shadow-sky-600 dark:bg-sky-700 w-1/4 h-[20%]" />
+        <div className="absolute top-[30%] left-[56%] -translate-x-full bg-red-200 blur-3xl z-1 rounded-full shadow-4xl shadow-red-200 w-1/4 h-[12%] h-16" />
+        <div className="absolute top-[30%] left-[86%] -translate-x-full bg-sky-200 blur-3xl z-1 rounded-xl shadow-3xl shadow-sky-200 w-1/4 h-[12%]" />
 
-      {/* </motion.div> */}
+        <div className="absolute top-[55%] left-[45%]   blur-3xl z-1 rounded-full shadow-4xl shadow-red-200 w-1/4 h-16 bg-red-200 h-[12%]" />
+        <div className="absolute top-[60%] left-[50%] -translate-x-full blur-3xl z-1 rounded-full shadow-3xl shadow-sky-200 w-1/4 h-16 h-[12%] bg-sky-100" />
+      </>
+    )}
 
-      <div className="absolute top-[30%] left-[56%] -translate-x-full bg-red-100 dark:bg-red-700 blur-lg z-1 rounded-xl shadow-4xl shadow-red-100 dark:shadow-red-700 w-2/4 h-[22%]" />
-      <div className="absolute top-[30%] left-[86%] -translate-x-full bg-sky-100 dark:bg-sky-500 blur-lg z-1 rounded-xl shadow-3xl shadow-sky-100 dark:shadow-sky-700 w-1/4 h-[27%]" />
+    {props.darkSide && (
+      <>
+        <div className="absolute left-[53%] bg-red-700 blur-3xl w-1/6 h-1/6 rounded-2xl shadow-4xl shadow-red-900" />
+        <div className="absolute left-[23%] bg-sky-700 blur-3xl w-1/6 h-1/6 rounded-2xl shadow-4xl shadow-sky-900" />
 
-      <div className="absolute top-[55%] left-[45%]  bg-red-100 dark:bg-red-700 blur-lg z-1 rounded-full shadow-4xl shadow-red-100 dark:shadow-red-700 w-1/4 h-[23%]" />
-      <div className="absolute top-[60%] left-[50%] -translate-x-full bg-sky-100 dark:bg-sky-700 blur-lg z-1 rounded-full shadow-3xl shadow-sky-100 dark:shadow-sky-700 w-1/4 h-[20%]" />
-    </motion.div>
+        <div className="absolute left-[53%] top-[30%] bg-red-700 blur-3xl w-1/6 h-1/6 rounded-2xl shadow-4xl shadow-red-900" />
+        <div className="absolute left-[23%] top-[30%] bg-sky-700 blur-3xl w-1/6 h-1/6 rounded-2xl shadow-4xl shadow-sky-900" />
 
+        <div className="absolute left-[53%] top-[60%] bg-red-700 blur-3xl w-1/6 h-1/6 rounded-2xl shadow-4xl shadow-red-900" />
+        <div className="absolute left-[23%] top-[60%] bg-sky-700 blur-3xl w-1/6 h-1/6 rounded-2xl shadow-4xl shadow-sky-900" />
+      </>
+    )}
     {props.children}
     {!props.noFooter && <Footer />}
   </>

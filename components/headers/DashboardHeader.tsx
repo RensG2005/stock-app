@@ -1,8 +1,15 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { SearchIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import axios from 'axios';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
+import useDebounce from '../../hooks/useDebounce';
 import clsx from '../../lib/clsx';
+import Input from '../ui/Input';
+import Spinner from '../ui/Spinner';
+import Title from '../ui/Title';
 
 const userNavigation = [
   { name: 'Your Profile', href: 'app/profile' },
@@ -13,10 +20,47 @@ const userNavigation = [
 function DashboardHeader({ user }) {
   const [navigation, setNavigation] = useState<
     { name: string; href: string; current: boolean }[]
-  >([
-    { name: 'Overview', href: 'overview', current: false },
-    { name: 'News', href: 'news', current: false },
-  ]);
+  >([{ name: 'News', href: 'news', current: false }]);
+
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+
+  useEffect(() => {
+    if (!searchOpen) {
+      setSearchTerm('');
+      setSearchResults([]);
+    }
+  }, [searchOpen]);
+
+  const {
+    isLoading, isIdle, isError, mutate,
+  }: any = useMutation(
+    'searchStock',
+    () => axios.post('/api/search', {
+      search: searchTerm,
+    }),
+    {
+      onSuccess(data, variables, context) {
+        setSearchResults(data.data.data.bestMatches);
+      },
+      onError(error, variables, context) {
+        console.log(error);
+      },
+    },
+  );
+
+  useEffect(() => {
+    let mounted = true;
+    if (mounted && searchTerm.length >= 2) {
+      mutate(searchTerm);
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [debouncedSearchTerm]);
+
   useEffect(() => {
     setNavigation(
       navigation.map((item) => {
@@ -69,16 +113,73 @@ function DashboardHeader({ user }) {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
+                    <div onBlur={() => setSearchOpen(false)} className="flex">
+                      {isLoading && <Spinner />}
+                      <motion.div layout>
+                        {searchOpen && (
+                          <Input
+                            autoFocus
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(
+                              e.target.value.substring(0, 6).toUpperCase(),
+                            )}
+                            placeholder="e.g. AAPL"
+                          />
+                        )}
+                      </motion.div>
+                    </div>
+                    {!isLoading
+                      && !isIdle
+                      && !isError
+                      && searchOpen
+                      && searchResults.length > 0 && (
+                        <div
+                          className="z-50 flex flex-col fixed p-2 bg-gray-800 dark:bg-white text-white dark:text-black"
+                          style={{ top: '70px', left: '64.5%' }}
+                        >
+                          {searchResults.map((item, index) => (
+                            <motion.div key={item['1. symbol']}>
+                              <Link
+                                href={`/app/stock/${item['1. symbol']}`}
+                                replace
+                                passHref
+                              >
+                                <a>
+                                  <Title type="h1">{item['2. name']}</Title>
+                                  <Title type="h3">{item['1. symbol']}</Title>
+                                </a>
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </div>
+                    )}
+                    {!isLoading
+                      && !isIdle
+                      && !isError
+                      && searchOpen
+                      && searchResults.length === 0 && (
+                        <div
+                          className="z-50 flex flex-col fixed p-2 bg-gray-800 dark:bg-white text-white dark:text-black"
+                          style={{ top: '70px', left: '64.5%' }}
+                        >
+                          <Title type="h1">No Results</Title>
+                        </div>
+                    )}
                     <button
                       type="button"
-                      className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      className="bg-gray-800 p-1 ml-6 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                     >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
+                      <span className="sr-only">Search</span>
+                      <SearchIcon
+                        className="h-6 w-6"
+                        aria-hidden="true"
+                        onClick={() => setSearchOpen(!searchOpen)}
+                      />
                     </button>
 
                     {/* Profile dropdown */}
-                    <Menu as="div" className="ml-3 relative">
+                    <Menu as="div" className="ml-3 relative z-50">
                       <div>
                         <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
@@ -91,7 +192,7 @@ function DashboardHeader({ user }) {
                       </div>
                       <Transition
                         as={Fragment}
-                        enter="transition ease-out duration-100"
+                        enter="transition ease-out duration-500"
                         enterFrom="transform opacity-0 scale-95"
                         enterTo="transform opacity-100 scale-100"
                         leave="transition ease-in duration-75"
@@ -107,7 +208,7 @@ function DashboardHeader({ user }) {
                                     href={item.href}
                                     className={clsx(
                                       active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700',
+                                      'block px-4 py-2 text-sm text-gray-700 z-50 relative',
                                     )}
                                   >
                                     {item.name}
@@ -171,13 +272,22 @@ function DashboardHeader({ user }) {
                       {user.email}
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+
+                  <Link href="/app/search" replace passHref>
+                    <a>
+                      <button
+                        type="button"
+                        className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      >
+                        <span className="sr-only">Search</span>
+                        <SearchIcon
+                          className="h-6 w-6"
+                          aria-hidden="true"
+                          onClick={() => setSearchOpen(!searchOpen)}
+                        />
+                      </button>
+                    </a>
+                  </Link>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
                   {userNavigation.map((item) => (

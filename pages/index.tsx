@@ -122,10 +122,10 @@ function Homepage() {
               <h2 className="text-base text-sky-600 font-semibold tracking-wide uppercase">
                 Transactions
               </h2>
-              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900  dark:text-white sm:text-4xl">
                 A better way to send money
               </p>
-              <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+              <p className="mt-4 max-w-2xl text-xl text-gray-500  dark:text-gray-200 lg:mx-auto">
                 Lorem ipsum dolor sit amet consect adipisicing elit. Possimus
                 magnam voluptatum cupiditate veritatis in accusamus quisquam.
               </p>
@@ -139,11 +139,11 @@ function Homepage() {
                       <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-sky-500 text-white">
                         <feature.icon className="h-6 w-6" aria-hidden="true" />
                       </div>
-                      <p className="ml-16 text-lg leading-6 font-medium text-gray-900">
+                      <p className="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">
                         {feature.name}
                       </p>
                     </dt>
-                    <dd className="mt-2 ml-16 text-base text-gray-500">
+                    <dd className="mt-2 ml-16 text-base text-gray-500 dark:text-gray-300">
                       {feature.description}
                     </dd>
                   </div>
@@ -166,12 +166,12 @@ function Homepage() {
             isIntrinsicHeight
             totalSlides={2}
           >
-            <h1 className="text-5xl font-bold xl:block hidden leading-tight text-gray-800">
+            <h1 className="text-5xl font-bold xl:block hidden leading-tight text-gray-800 dark:text-gray-200">
               What our customers are
               <br />
               saying
             </h1>
-            <h1 className="text-5xl font-bold xl:hidden block leading-tight lg:leading-10 text-gray-800">
+            <h1 className="text-5xl font-bold xl:hidden block leading-tight lg:leading-10 text-gray-800 dark:text-200">
               What our customers are saying
             </h1>
             <Slider>
@@ -181,7 +181,7 @@ function Homepage() {
             </Slider>
             <div className="flex items-center mt-8">
               <ButtonBack
-                className="cursor-pointer "
+                className="cursor-pointer dark:bg-white transform scale-110"
                 role="button"
                 aria-label="previous slide"
               >
@@ -216,7 +216,7 @@ function Homepage() {
               <ButtonNext
                 role="button"
                 aria-label="next slide"
-                className="cursor-pointer ml-2"
+                className="cursor-pointer ml-2 dark:bg-white transform scale-110"
               >
                 <svg
                   width="31"
