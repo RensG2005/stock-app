@@ -1,6 +1,6 @@
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import Button from '../../components/ui/Button/Button';
+import Button from '../../components/ui/Button';
 import Title from '../../components/ui/Title';
 
 export default function Signout() {

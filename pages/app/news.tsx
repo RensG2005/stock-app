@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import NewsCard from '../../components/ui/NewsCard';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import Title from '../../components/ui/Title';
-import Button from '../../components/ui/Button/Button';
+import Button from '../../components/ui/Button';
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);

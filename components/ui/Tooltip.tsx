@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import wiki, { wikiSummary } from 'wikipedia';
+import * as definitions from '../../stockDefinitions.json';
 
 interface Props {
   content: string;
@@ -29,8 +29,8 @@ function Tooltip(props: Props) {
 
   async function getSummary() {
     try {
-      const summary: wikiSummary = await wiki.summary(props.content);
-      setdefinition(summary.description);
+      const definition = definitions[props.content];
+      setdefinition(definition);
     } catch (error) {
       console.log(error);
     }

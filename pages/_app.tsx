@@ -19,7 +19,7 @@ function App({ Component, pageProps }: AppProps) {
     const [query, params] = queryKey;
     toastId.current = toast.loading('Loading...');
     const response = await axios.get(
-      `http://localhost:3000/api${query}?${new URLSearchParams(params)}`,
+      `${process.env.API_URL}${query}?${new URLSearchParams(params)}`,
     );
     if (!response.data) {
       toast.dismiss(toastId.current);

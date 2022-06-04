@@ -48,12 +48,12 @@ export default function SignIn({ providers }) {
     <Layout title="Sign in" noFooter>
       <div className="w-full">
         <div className="flex flex-col items-center justify-center">
-          <div className="bg-white z-20 shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 md:mt-16">
+          <div className="bg-white dark:bg-gray-800 z-20 shadow rounded lg:w-1/2  md:w-1/2 w-full p-10 md:mt-16">
             <p
               tabIndex={0}
               role="heading"
               aria-label="Login to your account"
-              className="text-2xl font-extrabold leading-6 text-gray-800"
+              className="text-2xl font-extrabold leading-6 text-gray-800 dark:text-gray-100"
             >
               Login to your account
             </p>
@@ -61,7 +61,7 @@ export default function SignIn({ providers }) {
               onClick={() => submit(providers.google.id)}
               aria-label="Continue with google"
               role="button"
-              className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-10"
+              className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 dark:border-gray-200 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-10"
             >
               <svg
                 width={19}
@@ -87,7 +87,7 @@ export default function SignIn({ providers }) {
                   fill="#EB4335"
                 />
               </svg>
-              <p className="text-base font-medium ml-4 text-gray-700">
+              <p className="text-base font-medium ml-4 text-gray-700 dark:text-gray-200">
                 Continue with Google
               </p>
             </button>
@@ -95,7 +95,7 @@ export default function SignIn({ providers }) {
               onClick={() => submit(providers.github.id)}
               aria-label="Continue with github"
               role="button"
-              className="focus:outline-none  focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-4"
+              className="focus:outline-none  focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 dark:border-gray-200 flex items-center w-full mt-4"
             >
               <svg
                 width={21}
@@ -107,9 +107,10 @@ export default function SignIn({ providers }) {
                 <path
                   d="M10.1543 0C4.6293 0 0.154298 4.475 0.154298 10C0.153164 12.0993 0.813112 14.1456 2.04051 15.8487C3.26792 17.5517 5.00044 18.8251 6.9923 19.488C7.4923 19.575 7.6793 19.275 7.6793 19.012C7.6793 18.775 7.6663 17.988 7.6663 17.15C5.1543 17.613 4.5043 16.538 4.3043 15.975C4.1913 15.687 3.7043 14.8 3.2793 14.562C2.9293 14.375 2.4293 13.912 3.2663 13.9C4.0543 13.887 4.6163 14.625 4.8043 14.925C5.7043 16.437 7.1423 16.012 7.7163 15.75C7.8043 15.1 8.0663 14.663 8.3543 14.413C6.1293 14.163 3.8043 13.3 3.8043 9.475C3.8043 8.387 4.1913 7.488 4.8293 6.787C4.7293 6.537 4.3793 5.512 4.9293 4.137C4.9293 4.137 5.7663 3.875 7.6793 5.163C8.49336 4.93706 9.33447 4.82334 10.1793 4.825C11.0293 4.825 11.8793 4.937 12.6793 5.162C14.5913 3.862 15.4293 4.138 15.4293 4.138C15.9793 5.513 15.6293 6.538 15.5293 6.788C16.1663 7.488 16.5543 8.375 16.5543 9.475C16.5543 13.313 14.2173 14.163 11.9923 14.413C12.3543 14.725 12.6673 15.325 12.6673 16.263C12.6673 17.6 12.6543 18.675 12.6543 19.013C12.6543 19.275 12.8423 19.587 13.3423 19.487C15.3273 18.8168 17.0522 17.541 18.2742 15.8392C19.4962 14.1373 20.1537 12.0951 20.1543 10C20.1543 4.475 15.6793 0 10.1543 0Z"
                   fill="#333333"
+                  className="fill-current"
                 />
               </svg>
-              <p className="text-base font-medium ml-4 text-gray-700">
+              <p className="text-base font-medium ml-4 text-gray-700 dark:text-gray-200">
                 Continue with Github
               </p>
             </button>

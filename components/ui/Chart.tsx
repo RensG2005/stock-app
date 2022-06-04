@@ -12,6 +12,12 @@ function Chart({ series }) {
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: 500,
+      rightPriceScale: {
+        scaleMargins: {
+          top: 0.1,
+          bottom: 0.1,
+        },
+      },
     });
     chart.timeScale().fitContent();
 

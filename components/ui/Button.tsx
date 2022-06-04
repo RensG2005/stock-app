@@ -1,4 +1,4 @@
-import clsx from '../../../lib/clsx';
+import clsx from '../../lib/clsx';
 
 interface Props {
   onClick?: (...args: any) => any;

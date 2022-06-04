@@ -60,7 +60,6 @@ specifiers:
   ts-jest: ^27.1.4
   ts-node: ^10.7.0
   typescript: 4.5.5
-  wikipedia: ^1.1.8
 
 dependencies:
   '@headlessui/react': 1.6.0_sfoxds7t5ydpegc3knd667wn6m
@@ -85,7 +84,6 @@ dependencies:
   react-images-uploading: 3.1.6_sfoxds7t5ydpegc3knd667wn6m
   react-query: 3.38.0_sfoxds7t5ydpegc3knd667wn6m
   react-toastify: 8.2.0_sfoxds7t5ydpegc3knd667wn6m
-  wikipedia: 1.1.8
 
 devDependencies:
   '@babel/core': 7.17.9
@@ -5636,11 +5634,6 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /camelcase/4.1.0:
-    resolution: {integrity: sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0=}
-    engines: {node: '>=4'}
-    dev: false
-
   /camelcase/5.3.1:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
@@ -8743,12 +8736,6 @@ packages:
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
-
-  /infobox-parser/3.6.2:
-    resolution: {integrity: sha512-lasdwvbtjCtDDO6mArAs/ueFEnBJRyo2UbZPAkd5rEG5NVJ3XFCOvbMwNTT/rJlFv1+ORw8D3UvZV4brpgATCg==}
-    dependencies:
-      camelcase: 4.1.0
-    dev: false
 
   /inherits/2.0.1:
     resolution: {integrity: sha1-sX0I0ya0Qj5Wjv9xn5GwscvfafE=}
@@ -14862,16 +14849,6 @@ packages:
     dependencies:
       string-width: 4.2.3
     dev: true
-
-  /wikipedia/1.1.8:
-    resolution: {integrity: sha512-ViwcPGccpK+imOOz8s5cYfsRVarw0ylb8QNZF+OHEztiQ6wxhs+nXjSuwv+wgKyn7c4eGZ7iRfw5EWIi9FTsMA==}
-    engines: {node: '>=10'}
-    dependencies:
-      infobox-parser: 3.6.2
-      node-fetch: 2.6.7
-    transitivePeerDependencies:
-      - encoding
-    dev: false
 
   /word-wrap/1.2.3:
     resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}

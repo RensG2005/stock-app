@@ -17,12 +17,6 @@ import { motion } from 'framer-motion';
 import { darkModeContext } from './_app';
 import { useContext } from 'react';
 
-export async function getStaticProps(context) {
-  return {
-    props: {},
-  };
-}
-
 function Homepage() {
   const features = [
     {

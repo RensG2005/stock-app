@@ -1,11 +1,11 @@
 import { getSession } from 'next-auth/react';
 import ImageUploading from 'react-images-uploading';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Title from '../../components/ui/Title';
-import Button from '../../components/ui/Button/Button';
+import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 
@@ -35,7 +35,7 @@ function Profile({ session }) {
   const [user, setUser] = useState(session?.user);
 
   const {
-    mutate, isIdle, isLoading, data, error, isError,
+    mutate, isLoading, error, isError,
   }: any = useMutation(
     'updateUser',
     () => axios.put('/api/auth/updateUser', {

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import useWindowSize from '../../hooks/useWindowDimensions';
 import clsx from '../../lib/clsx';
 import shortenText from '../../lib/shortenText/shortenText';
-import Button from './Button/Button';
+import Button from './Button';
 import Title from './Title';
 
 export default function NewsCard({

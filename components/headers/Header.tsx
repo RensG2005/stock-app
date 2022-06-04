@@ -16,7 +16,7 @@ import {
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import clsx from '../../lib/clsx';
-import Button from '../ui/Button/Button';
+import Button from '../ui/Button';
 
 const solutions = [
   {

@@ -11,6 +11,7 @@ import Title from '../../../components/ui/Title';
 import abbrNum from '../../../lib/abbreviateText/abbreviateNumber';
 import Spinner from '../../../components/ui/Spinner';
 import Tooltip from '../../../components/ui/Tooltip';
+import Button from '../../../components/ui/Button';
 
 const Chart = dynamic(() => import('../../../components/ui/Chart'), {
   ssr: false,
@@ -30,7 +31,6 @@ export async function getServerSideProps(context) {
   }
   return { props: { session, ticker } };
 }
-
 interface Props {
   session: Session;
   ticker: string;
@@ -43,6 +43,9 @@ function Stock({ session, ticker }: Props) {
 
   const [companyFundamentals, setCompanyFundamentals] = useState<any>({});
   const [series, setSeries] = useState<any>([]);
+  const [interval, setInterval] = useState<
+    '1min' | '5min' | '15min' | '30min' | '60min' | ''
+  >('');
 
   const {
     isLoading, isIdle, isError, mutate,
@@ -50,6 +53,7 @@ function Stock({ session, ticker }: Props) {
     'searchStock',
     () => axios.post('/api/overview', {
       search: ticker,
+      interval,
     }),
     {
       onSuccess: (data: any) => {
@@ -57,14 +61,26 @@ function Stock({ session, ticker }: Props) {
         const overviewData = {
           Description: null,
         };
-        for (const key in data.data?.data_daily['Time Series (Daily)']) {
+        const formattedstring = interval || 'Daily';
+        console.log(data.data?.data_daily[`Time Series (${formattedstring})`]);
+        for (const key in data.data?.data_daily[
+          `Time Series (${formattedstring})`
+        ]) {
           dailyData.unshift({
             time: key,
-            open: data?.data?.data_daily['Time Series (Daily)'][key]['1. open'],
-            high: data?.data?.data_daily['Time Series (Daily)'][key]['2. high'],
-            low: data?.data?.data_daily['Time Series (Daily)'][key]['3. low'],
+            open: data?.data?.data_daily[`Time Series (${formattedstring})`][
+              key
+            ]['1. open'],
+            high: data?.data?.data_daily[`Time Series (${formattedstring})`][
+              key
+            ]['2. high'],
+            low: data?.data?.data_daily[`Time Series (${formattedstring})`][
+              key
+            ]['3. low'],
             close:
-              data?.data?.data_daily['Time Series (Daily)'][key]['4. close'],
+              data?.data?.data_daily[`Time Series (${formattedstring})`][key][
+                '4. close'
+              ],
           });
         }
         setSeries(dailyData);
@@ -86,9 +102,10 @@ function Stock({ session, ticker }: Props) {
     },
   );
 
+  console.log(series);
   useEffect(() => {
     mutate();
-  }, []);
+  }, [interval]);
 
   return (
     <DashboardLayout title={`${ticker}`} user={user}>
@@ -106,6 +123,24 @@ function Stock({ session, ticker }: Props) {
             {' '}
             Overview:
           </Title>
+          <Button onClick={() => setInterval('1min')} variant="secondary">
+            1 min
+          </Button>
+          <Button onClick={() => setInterval('5min')} variant="secondary">
+            5 min
+          </Button>
+          <Button onClick={() => setInterval('15min')} variant="secondary">
+            15 min
+          </Button>
+          <Button onClick={() => setInterval('30min')} variant="secondary">
+            30 min
+          </Button>
+          <Button onClick={() => setInterval('60min')} variant="secondary">
+            60 min
+          </Button>
+          <Button onClick={() => setInterval('')} variant="secondary">
+            1 Day Max Timeline
+          </Button>
           <Chart series={series} />
           <div className="col-span-2 my-5">
             <Title type="h4">Description:</Title>
